@@ -1,10 +1,11 @@
-import { Api } from './index'
+import { http } from '~/api/index'
+
 export interface LoginData {
   username: string
   password: string
   code: string
 }
 
-export function login(this: Api, data: LoginData) {
-  return this?.request?.post('/login', data)
+export function login(data: LoginData) {
+  return http.post('/login', data)
 }
