@@ -29,4 +29,11 @@ export default defineConfig({
     ],
     extensions: ['.ts', '.vue', '.tsx'],
   },
+  css: {
+    preprocessorOptions: {
+      less: {
+        additionalData: `@import "~/styles/index.less"; `,
+      },
+    },
+  },
 })
