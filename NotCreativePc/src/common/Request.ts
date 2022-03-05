@@ -64,7 +64,7 @@ export class Request {
     this.responseCallbacks.push(onFulfilled)
   }
 
-  request(url: string) {
+  get(url: string) {
     return this.http.get(url)
   }
 
@@ -89,12 +89,14 @@ export class Request {
   }
 }
 
-export default (): ((options: AxiosRequestConfig) => Request) => {
-  let instance: null | Request = null
+const initInstance = (): ((options: AxiosRequestConfig) => Request) => {
+  let http: Request
   return (options): Request => {
-    if (!instance) {
-      instance = new Request(options)
+    if (!http) {
+      http = new Request(options)
     }
-    return instance
+    return http
   }
 }
+
+export default initInstance()
