@@ -10,6 +10,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
+    "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"],
