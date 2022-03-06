@@ -65,7 +65,7 @@
 
       &__input {
         width: 240px;
-        border: none;
+        border: 2px solid transparent;
         display: block;
         padding: 15px 30px;
         background-color: rgba($color: #fff, $alpha: 0.2);
@@ -74,6 +74,11 @@
         outline: none;
         color: #fff;
         caret-color: #eee;
+
+        &:focus-visible {
+          transition: 1s border;
+          border: 2px solid var(--primary);
+        }
 
         &::placeholder {
           color: #e3e3e3;
@@ -88,6 +93,11 @@
         margin-top: 30px;
         padding: 10px 30px;
         background-color: var(--primary);
+
+        &:hover {
+          color: rgba($color: #fff, $alpha: 0.8);
+          background-color: var(--primary-hover);
+        }
       }
     }
 
