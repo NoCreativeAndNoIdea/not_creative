@@ -40,15 +40,19 @@ router.beforeEach((to, from, next) => {
     langStore.setLanguage(LANG_ENUM[lang])
   }
 
-  if (!import.meta.env.DEV) {
-    if (!authStore.getIsLogin && to.name !== 'login') {
-      return next({
-        name: 'login',
-        params: {
-          lang: 'zh',
-        },
-      })
-    }
+  if (!authStore.getIsLogin && to.name !== 'login') {
+    return next({
+      name: 'login',
+      params: {
+        lang: 'zh',
+      },
+    })
+  }
+
+  if (authStore.getIsLogin && to.name === 'login') {
+    return next({
+      name: 'home',
+    })
   }
 
   return next()
