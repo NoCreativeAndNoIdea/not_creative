@@ -36,8 +36,8 @@ export default defineConfig({
   },
   css: {
     preprocessorOptions: {
-      less: {
-        additionalData: `@import "~/styles/index.less"; `,
+      scss: {
+        additionalData: `@import "~/styles/index.scss"; `,
       },
     },
   },

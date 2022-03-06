@@ -4,7 +4,7 @@ import App from './App.vue'
 const app = createApp(App)
 
 // global style
-import '~/styles/common.less'
+import '~/styles/common.scss'
 
 // init store use pinia
 import store from '~/store'
