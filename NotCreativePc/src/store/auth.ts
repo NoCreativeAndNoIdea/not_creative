@@ -1,3 +1,4 @@
+import Storage from '~/common/Storage'
 import { defineStore } from 'pinia'
 
 export interface AuthStore {
@@ -11,12 +12,20 @@ export interface LoginData {
   password: string
 }
 
+export const AUTH_STORAGE_KEY = 'AUTH_STORAGE_KEY'
+
+const authStorageData = Storage.getItem<AuthStore>(AUTH_STORAGE_KEY, 'session')
+
 export const useAuthStore = defineStore('auth', {
-  state: (): AuthStore => ({
-    isLogin: false,
-    token: '',
-    tokenHead: '',
-  }),
+  state: (): AuthStore =>
+    Object.assign(
+      {
+        isLogin: false,
+        token: '',
+        tokenHead: '',
+      },
+      authStorageData
+    ),
   getters: {
     getIsLogin(state) {
       return state.isLogin
@@ -28,7 +37,21 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login(payload: LoginData) {
       this.isLogin = true
+      const { isLogin, token, tokenHead } = this
       // TODO: login logic
+
+      // 使用 session 存储在本地
+      Storage.setItem<AuthStore>(
+        AUTH_STORAGE_KEY,
+        {
+          isLogin,
+          token,
+          tokenHead,
+        },
+        {
+          type: 'session',
+        }
+      )
     },
     async logout() {
       this.isLogin = false
