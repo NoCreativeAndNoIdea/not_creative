@@ -1,4 +1,5 @@
-import { defineStore, acceptHMRUpdate } from 'pinia'
+import { defineStore } from 'pinia'
+import i18n from '~/i18n'
 
 export type Language = 'zh_CN' | 'zh_HK' | 'en_US'
 
@@ -6,7 +7,7 @@ export interface MainState {
   language: Language
 }
 
-export const useLang = defineStore('lang', {
+export const useLangStore = defineStore('lang', {
   state: (): MainState => ({
     language: 'zh_CN',
   }),
@@ -24,10 +25,9 @@ export const useLang = defineStore('lang', {
   actions: {
     setLanguage(payload: Language): void {
       this.language = payload
+      i18n.global.locale = this.getLang
     },
   },
 })
 
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useLang, import.meta.hot))
-}
+export default useLangStore
