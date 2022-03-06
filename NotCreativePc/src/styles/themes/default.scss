@@ -1,0 +1,7 @@
+@each $key,$val in $theme {
+  html[data-theme=#{$key}]{
+    @each $subKey,$subVal in $val {
+      --#{$subKey}: #{$subVal};
+    }
+  }
+}

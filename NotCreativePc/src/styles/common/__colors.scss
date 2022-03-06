@@ -1,10 +1,20 @@
-
-// default color
-$base-primary: #2A85F4;
-$base-primary-hover: rgba($base-primary,.8);
-$base-primary-active: rgba($base-primary,.6);
-$base-bg-color:#ECF4FE;
-$base-text-title: #010913;
-$base-text-sub-title: rgba(#010913,.8);
-$base-text-desc: rgba(#010913,.6);
-$base-disabled: #64A6F7;
+$theme:(
+  "light" : (
+    bg-color:#fff,
+    primary: #2A85F4,
+    primary-hover: rgba(#2A85F4,.8),
+    primary-active: rgba(#2A85F4,.6),
+    text-title: #010913,
+    text-sub-title: rgba(#010913,.8),
+    text-desc: rgba(#010913,.6),
+  ),
+  "dark": (
+    bg-color:#000,
+    primary: #2A85F4,
+    primary-hover: rgba(#2A85F4,.8),
+    primary-active: rgba(#2A85F4,.6),
+    text-title: #fff,
+    text-sub-title: rgba(#fff,.8),
+    text-desc: rgba(#fff,.6),
+  )
+)
