@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
+import { useLangStore } from '~/store/lang'
+import { LANG_ENUM } from '~/i18n'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -21,6 +23,16 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+router.beforeEach((to) => {
+  // set current locale language
+  const langStore = useLangStore()
+  const lang = to.params.lang as string
+  if (lang in LANG_ENUM) {
+    langStore.setLanguage(LANG_ENUM[lang])
+  }
+  return true
 })
 
 export default router

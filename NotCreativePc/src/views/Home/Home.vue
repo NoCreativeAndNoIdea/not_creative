@@ -1,2 +1,2 @@
 <script setup lang="ts"></script>
-<template>home</template>
+<template>{{ $t('home') }}</template>

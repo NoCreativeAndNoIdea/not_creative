@@ -10,6 +10,8 @@ declare module '*.vue' {
 interface ImportMetaEnv extends Readonly<Record<string, string>> {
   readonly VITE_APP_TITLE: string
   readonly VITE_API_URL: string
+  readonly VITE_DEFAULT_LOCALE: string
+  readonly VITE_FALLBACK_LOCALE: string
 }
 
 interface ImportMeta {
