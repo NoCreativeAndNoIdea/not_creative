@@ -12,9 +12,17 @@ export interface LoginData {
   password: string
 }
 
-export const AUTH_STORAGE_KEY = 'AUTH_STORAGE_KEY'
+export const useAuthStorage = <T extends AuthStore>(data?: T) => {
+  const AUTH_STORAGE_KEY = 'AUTH_STORAGE_KEY'
 
-const authStorageData = Storage.getItem<AuthStore>(AUTH_STORAGE_KEY, 'session')
+  if (data) {
+    // 使用 session 存储在本地
+    Storage.setItem<AuthStore>(AUTH_STORAGE_KEY, data, {
+      type: 'session',
+    })
+  }
+  return Storage.getItem<AuthStore>(AUTH_STORAGE_KEY, 'session')
+}
 
 export const useAuthStore = defineStore('auth', {
   state: (): AuthStore =>
@@ -24,7 +32,7 @@ export const useAuthStore = defineStore('auth', {
         token: '',
         tokenHead: '',
       },
-      authStorageData
+      useAuthStorage()
     ),
   getters: {
     getIsLogin(state) {
@@ -39,19 +47,11 @@ export const useAuthStore = defineStore('auth', {
       this.isLogin = true
       const { isLogin, token, tokenHead } = this
       // TODO: login logic
-
-      // 使用 session 存储在本地
-      Storage.setItem<AuthStore>(
-        AUTH_STORAGE_KEY,
-        {
-          isLogin,
-          token,
-          tokenHead,
-        },
-        {
-          type: 'session',
-        }
-      )
+      useAuthStorage({
+        isLogin,
+        token,
+        tokenHead,
+      })
     },
     async logout() {
       this.isLogin = false
