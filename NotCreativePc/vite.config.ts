@@ -9,13 +9,7 @@ export default defineConfig({
     __VUE_I18N_LEGACY_API__: true,
     __INTLIFY_PROD_DEVTOOLS__: false,
   },
-  plugins: [
-    vue(),
-    vueJsx({
-      optimize: true,
-      enableObjectSlots: true,
-    }),
-  ],
+  plugins: [vue(), vueJsx({})],
   resolve: {
     // 有两种写法
     /*
