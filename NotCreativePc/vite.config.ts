@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -8,7 +9,13 @@ export default defineConfig({
     __VUE_I18N_LEGACY_API__: true,
     __INTLIFY_PROD_DEVTOOLS__: false,
   },
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    vueJsx({
+      optimize: true,
+      enableObjectSlots: true,
+    }),
+  ],
   resolve: {
     // 有两种写法
     /*
