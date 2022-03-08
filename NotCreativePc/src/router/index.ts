@@ -1,5 +1,5 @@
-import { useTitle } from './../hooks/useTitle'
-import { useAuthStore } from './../store/auth'
+import { useTitle } from '~/hooks/useTitle'
+import { useAuthStore } from '~/store/auth'
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import { useLangStore } from '~/store/lang'
