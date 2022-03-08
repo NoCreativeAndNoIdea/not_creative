@@ -3,7 +3,7 @@ import { useAuthStore } from '~/store/auth'
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import { useLangStore } from '~/store/lang'
-import { t, LANG_ENUM } from '~/i18n'
+import { LANG_ENUM } from '~/i18n'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
     langStore.setLanguage(LANG_ENUM[lang])
   }
   const title = to.meta?.title
-  useTitle(t(title ?? ''))
+  useTitle(title ?? '')
 
   if (!authStore.getIsLogin && to.name !== 'login') {
     return next({
