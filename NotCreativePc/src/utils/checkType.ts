@@ -6,6 +6,7 @@ export type DataType =
   | 'Number'
   | 'String'
   | 'Object'
+  | 'Array'
   | 'Boolean'
   | 'Function'
   | 'Null'
@@ -19,7 +20,7 @@ export type DataType =
  * @param type 类型 in DataType
  * @returns boolean
  */
-export const isType = <T extends DataType>(val: unknown, type: T): val is T => {
+export const isType = <T extends DataType>(val: unknown, type: T) => {
   const inlineType = Object.prototype.toString
     .call(val)
     .split(' ')[1]
