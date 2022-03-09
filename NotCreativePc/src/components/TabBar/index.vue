@@ -1,26 +1,24 @@
-<script lang="ts" setup>
+<script setup lang="ts">
   import { ref, defineProps, defineEmits } from 'vue'
-  interface TabBarProps {
-    icon: string
-    name: string
-  }
+  import type { TabBarItem } from './types'
 
-  const $emit = defineEmits(['change'])
   const props = defineProps<{
-    list: Array<TabBarProps>
+    list: Array<TabBarItem>
+  }>()
+  const $emit = defineEmits<{
+    (e: 'on-change', item: TabBarItem): void
   }>()
 
   const list = props?.list ?? []
+  const current = ref<TabBarItem>(list?.[0])
 
-  const current = ref<string>(list?.[0].name)
-
-  const onChange = (item: TabBarProps) => {
-    current.value = item.name
-    $emit('change', item)
+  const onChange = (item: TabBarItem) => {
+    current.value = item
+    $emit('on-change', item)
   }
 
-  const isActive = (item: TabBarProps): boolean => {
-    return item.name === current.value
+  const isActive = (item: TabBarItem): boolean => {
+    return item.name === current.value.name
   }
 </script>
 
@@ -28,18 +26,18 @@
   <div class="tab-bar">
     <template v-for="item in list" :key="item.name">
       <div
-        class="item"
-        :class="{ 'item-active': isActive(item) }"
+        class="tab-bar__item"
+        :class="{ 'tab-bar__item--active': isActive(item) }"
         @click="onChange(item)"
       >
-        <i class="icon iconfont" v-html="item.icon"></i>
-        <span class="name">{{ $t(item.name) }}</span>
+        <i class="tab-bar__icon iconfont" v-html="item.icon" />
+        <span class="tab-bar__name">{{ $t(item?.name ?? '') }}</span>
       </div>
     </template>
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .tab-bar {
     z-index: 1024;
     border-top: 1px solid #eee;
@@ -53,21 +51,22 @@
     justify-content: space-between;
     align-items: center;
     background-color: var(--bg-color);
-    .item {
+    &__item {
       display: flex;
       flex-direction: column;
       align-items: center;
       color: var(--tab-color);
       flex: 1;
-      .icon {
-        font-size: 22px;
-      }
-      .name {
-        font-size: 12px;
+
+      &--active {
+        color: var(--tab-active-color);
       }
     }
-    .item-active {
-      color: var(--tab-active-color);
+    &__icon {
+      font-size: 22px;
+    }
+    &__name {
+      font-size: 12px;
     }
   }
 </style>

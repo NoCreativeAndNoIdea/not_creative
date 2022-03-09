@@ -4,7 +4,7 @@ export default {
   password: 'username',
   login: 'login',
   Not_Creative: 'Not_Creative',
-  my: 'my',
-  vip: 'vip',
+  mine: 'my',
+  member: 'vip',
   find: 'find',
 }

@@ -17,5 +17,6 @@ module.exports = {
   rules: {
     'vue/valid-template-root': 'off',
     'vue/multi-word-component-names': 'off',
+    'vue/require-explicit-emits': 'off',
   },
 }
