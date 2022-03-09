@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
       },
       // 404 component
       {
-        path: '/:pathMatch(.*)*',
+        path: ':pathMatch(.*)*',
         name: '404',
         component: () => import('~/layouts/NotFound.vue'),
       },
