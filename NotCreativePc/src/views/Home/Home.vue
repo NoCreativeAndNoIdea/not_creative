@@ -1,14 +1,14 @@
 <template>
-  <tab-bar :list="tabbar"></tab-bar>
+  <tab-bar :list="tabBarList"></tab-bar>
 </template>
 <script setup lang="ts">
   import TabBar from '~/components/TabBar/index.vue'
+  import { reactive } from 'vue'
 
-  import { ref } from 'vue'
-  const tabbar = ref([
+  const tabBarList = reactive([
     { name: 'home', icon: '&#xe8eb;' },
     { name: 'find', icon: '&#xe8c1;' },
-    { name: 'vip', icon: '&#xe8dc;' },
-    { name: 'my', icon: '&#xe8f8;' },
+    { name: 'member', icon: '&#xe8dc;' },
+    { name: 'mine', icon: '&#xe8f8;' },
   ])
 </script>
