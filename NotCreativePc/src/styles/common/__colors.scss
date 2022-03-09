@@ -7,6 +7,8 @@ $theme:(
     text-title: #010913,
     text-sub-title: rgba(#010913,.8),
     text-desc: rgba(#010913,.6),
+    tab-color: #666,
+    tab-active-color: #e6a23c,
   ),
   "dark": (
     bg-color:#000,
@@ -16,6 +18,8 @@ $theme:(
     text-title: #fff,
     text-sub-title: rgba(#fff,.8),
     text-desc: rgba(#fff,.6),
+    tab-color: #fff,
+    tab-active-color: #e6a23c,
   )
 );
 
