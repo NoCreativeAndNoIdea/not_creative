@@ -8,28 +8,35 @@ import { LANG_ENUM } from '~/i18n'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: `/zh`,
+    redirect: `/zh/home`,
   },
   {
-    path: '/:lang/',
-    name: 'home',
-    meta: {
-      title: 'home',
-    },
-    component: () => import('~/views/Home/Home.vue'),
+    path: '/:lang?',
+    component: () => import('~/views/Main.vue'),
+    children: [
+      {
+        path: 'home',
+        name: 'home',
+        meta: {
+          title: 'home',
+        },
+        component: () => import('~/views/Home/Home.vue'),
+      },
+      // 404 component
+      {
+        path: '/:pathMatch(.*)*',
+        name: '404',
+        component: () => import('~/layouts/NotFound.vue'),
+      },
+    ],
   },
   {
-    path: '/:lang/login',
+    path: '/:lang?/login',
     name: 'login',
     meta: {
       title: 'login',
     },
     component: () => import('~/views/Login/Login.vue'),
-  },
-  // 404 component
-  {
-    path: '/:pathMatch(.*)',
-    component: () => import('~/layouts/NotFound.vue'),
   },
 ]
 
@@ -43,8 +50,11 @@ router.beforeEach((to, from, next) => {
   const langStore = useLangStore()
   const authStore = useAuthStore()
   const lang = to.params.lang as string
+
   if (lang in LANG_ENUM) {
     langStore.setLanguage(LANG_ENUM[lang])
+  } else {
+    to.params.lang = langStore.getLang
   }
   const title = to.meta?.title
   useTitle(title ?? '')
@@ -61,6 +71,9 @@ router.beforeEach((to, from, next) => {
   if (authStore.getIsLogin && to.name === 'login') {
     return next({
       name: 'home',
+      params: {
+        lang: 'zh',
+      },
     })
   }
 
