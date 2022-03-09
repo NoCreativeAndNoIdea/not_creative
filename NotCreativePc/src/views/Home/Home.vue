@@ -16,5 +16,5 @@
 </script>
 
 <template>
-  <tab-bar :list="tabBarList" @on-change="(item) => handleChange(item)" />
+  <tab-bar :list="tabBarList" @on-change="handleChange" />
 </template>
