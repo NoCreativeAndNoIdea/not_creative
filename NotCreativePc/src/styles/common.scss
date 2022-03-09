@@ -44,3 +44,10 @@ ul,
 ol {
   list-style: none;
 }
+
+
+html,
+body{
+  color: var(--text-desc);
+  background-color: var(--bg-color);
+}
