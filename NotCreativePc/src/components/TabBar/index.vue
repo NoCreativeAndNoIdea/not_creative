@@ -1,30 +1,48 @@
 <script setup lang="ts">
-  import { ref, defineProps, defineEmits } from 'vue'
-  import type { TabBarItem } from './types'
+  import { defineProps, defineEmits } from 'vue'
+  import { useState } from './hooks/useState'
+  import { __useRouter } from '~/hooks/__useRouter'
+  import type { TabBarItem, TabBarList } from './hooks/useState'
+  // TODO: 官方错误 必须要写在组件内,后续修正后单独引入
+  interface Props {
+    list?: TabBarList
+  }
 
-  const props = defineProps<{
-    list: Array<TabBarItem>
-  }>()
-  const $emit = defineEmits<{
-    (e: 'on-change', item: TabBarItem): void
-  }>()
+  interface Emits {
+    (e: 'on-change-tab', item: TabBarItem): void
+  }
 
-  const list = props?.list ?? []
-  const current = ref<TabBarItem>(list?.[0])
+  const props = defineProps<Props>()
+  const emits = defineEmits<Emits>()
+
+  const { route, push } = __useRouter()
+
+  const { currentItem, tabBarList } = useState()
+  tabBarList.value = props?.list ?? []
+  currentItem.value = tabBarList.value?.[0]
 
   const onChange = (item: TabBarItem) => {
-    current.value = item
-    $emit('on-change', item)
+    if (item.routeName) {
+      push({
+        name: item.routeName,
+        params: {
+          ...route.params,
+        },
+      })
+    }
+    currentItem.value = item
+    emits('on-change-tab', item)
   }
 
   const isActive = (item: TabBarItem): boolean => {
-    return item.name === current.value.name
+    if (item.routeName && route.name === item.routeName) return true
+    return item.name === currentItem.value.name
   }
 </script>
 
 <template>
   <div class="tab-bar">
-    <template v-for="item in list" :key="item.name">
+    <template v-for="item in tabBarList" :key="item.name">
       <div
         class="tab-bar__item"
         :class="{ 'tab-bar__item--active': isActive(item) }"
