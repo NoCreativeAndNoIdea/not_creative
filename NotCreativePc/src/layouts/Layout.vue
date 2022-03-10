@@ -19,7 +19,7 @@
     <div class="layout-main">
       <router-view :key="route.fullPath" />
     </div>
-    <TabBar :list="tabBarList" />
+    <tab-bar :list="tabBarList" />
   </div>
 </template>
 
