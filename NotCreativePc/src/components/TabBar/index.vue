@@ -64,7 +64,7 @@
     left: 0;
     right: 0;
     width: 100vw;
-    height: 50px;
+    height: pxToRem(50);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -81,10 +81,10 @@
       }
     }
     &__icon {
-      font-size: 22px;
+      font-size: pxToRem(22);
     }
     &__name {
-      font-size: 12px;
+      font-size: pxToRem(12);
     }
   }
 </style>
