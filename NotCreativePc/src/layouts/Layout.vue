@@ -7,10 +7,10 @@
 
   // TODO: 后期改造成可以配置菜单
   const tabBarList = reactive([
-    { name: 'home', icon: '&#xe8eb;', routeName: 'home' },
-    { name: 'find', icon: '&#xe8c1;', routeName: 'find' },
-    { name: 'member', icon: '&#xe8dc;', routeName: 'member' },
-    { name: 'mine', icon: '&#xe8f8;', routeName: 'mine' },
+    { name: 'home', icon: 'icon-shouye', routeName: 'home' },
+    { name: 'find', icon: 'icon-faxian', routeName: 'find' },
+    { name: 'member', icon: 'icon-qinghuiyuan', routeName: 'member' },
+    { name: 'mine', icon: 'icon-wode', routeName: 'mine' },
   ])
 </script>
 
@@ -26,6 +26,13 @@
 <style lang="scss">
   .layout {
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    &-main {
+      flex: 1;
+      overflow: hidden;
+    }
   }
 </style>
