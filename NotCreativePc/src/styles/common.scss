@@ -53,6 +53,9 @@ body{
   font-size:pxToRem(15);
   color: var(--text-desc);
   background-color: var(--bg-color);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 @import url('//at.alicdn.com/t/font_2162071_5bifdhpi2ii.css');
