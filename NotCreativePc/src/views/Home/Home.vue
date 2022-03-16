@@ -1,38 +1,44 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
-  const list = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+  import { effect, ref } from 'vue'
+  import VirtualList from '~/components/VirtualList/index.vue'
+  const list = ref(
+    new Array(100).fill(0).map((v, i) => ({
+      url: `https://source.unsplash.com/random?random=${i}`,
+      title: `顶呱呱${i}`,
+      avatar: 'https://source.unsplash.com/random',
+      name: '机器猫',
+      like: Math.floor(Math.random() * 10000),
+    }))
+  )
   const changeScroll = (e: unknown) => {
     console.log(e)
   }
 </script>
 
 <template>
-  <div class="waterfall" @scroll="changeScroll">
+  <VirtualList :list="list" :buffer-size="20" />
+  <!-- <div class="waterfall" @scroll="changeScroll">
     <div class="waterfall_box">
       <div v-for="(item, index) in list" :key="index" class="card">
-        <img
-          class="card__icon"
-          :src="`https://source.unsplash.com/random?random=${item}`"
-          alt=""
-        />
+        <img class="card__icon" :src="item.url" alt="" />
         <div class="card__content">
           <p class="card__content__title">
-            顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶
+            {{ item.title }}
           </p>
           <div class="card__content__user">
             <img
               class="card__content__user__avatar"
-              src="https://source.unsplash.com/random"
+              :src="item.avatar"
               alt=""
             />
-            <span class="card__content__user__name">机器猫</span>
+            <span class="card__content__user__name">{{ item.name }}</span>
             <i class="card__content__user__icon iconfont icon-aixin"></i>
-            <span class="card__content__user__like">10</span>
+            <span class="card__content__user__like">{{ item.like }}</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <style lang="scss" scoped>

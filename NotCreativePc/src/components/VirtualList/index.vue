@@ -15,19 +15,29 @@
   })
   const emits = defineEmits<Emits>()
 
-  const { virtualListEl, visibleList, handleScroll } = useState(
-    props.list,
-    props.bufferSize
-  )
+  const {
+    virtualListEl,
+    visibleList,
+    handleScroll,
+    vResizeObserver,
+    scrollRunwayEnd,
+    itemScrollY,
+    cachedScrollY,
+  } = useState(props.list, props.bufferSize)
 </script>
 
 <template>
   <ul ref="virtualListEl" class="virtual-list" @scroll="handleScroll">
-    <li class="virtual-list__runway"></li>
+    <li
+      class="virtual-list__runway"
+      :style="`transform: translate(0, ${scrollRunwayEnd}px)`"
+    />
     <li
       v-for="(item, inx) in visibleList"
       :key="inx"
-      :style="`transform: translate(0,${item.scrollY}px)`"
+      v-resize-observer="item"
+      :data-index="item.index"
+      :style="`transform: translate(0,${cachedScrollY[item.index]}px)`"
       class="virtual-list__item"
     >
       item {{ item.currentIndex }} {{ item.name }} {{ item.index }} {{ inx }}
@@ -42,6 +52,11 @@
     overflow-x: hidden;
     overflow-y: scroll;
     position: absolute;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
 
     &__runway {
       position: absolute;
