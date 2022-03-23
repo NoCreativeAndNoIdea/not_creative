@@ -18,5 +18,6 @@ module.exports = {
     'vue/valid-template-root': 'off',
     'vue/multi-word-component-names': 'off',
     'vue/require-explicit-emits': 'off',
+    'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
   },
 }
