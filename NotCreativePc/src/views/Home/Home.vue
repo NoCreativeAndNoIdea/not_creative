@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { effect, ref } from 'vue'
-  import VirtualList from '~/components/VirtualList/index.vue'
+  import { ref } from 'vue'
+  import SeasonList from '~/components/List'
   const list = ref(
-    new Array(100).fill(0).map((v, i) => ({
+    new Array(10).fill(0).map((v, i) => ({
       url: `https://source.unsplash.com/random?random=${i}`,
       title: `顶呱呱${i}`,
       avatar: 'https://source.unsplash.com/random',
@@ -10,46 +10,70 @@
       like: Math.floor(Math.random() * 10000),
     }))
   )
-  const changeScroll = (e: unknown) => {
-    console.log(e)
+  const loading = ref(false)
+  const finished = ref(false)
+
+  const handleLoad = () => {
+    let timer
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      list.value.push({
+        url: `https://source.unsplash.com/random?random=${
+          list.value.length + 1
+        }`,
+        title: `顶呱呱${list.value.length + 1}`,
+        avatar: 'https://source.unsplash.com/random',
+        name: '机器猫',
+        like: Math.floor(Math.random() * 10000),
+      })
+      loading.value = false
+      if (list.value.length >= 20) {
+        finished.value = true
+      }
+    }, 1000)
   }
 </script>
 
 <template>
-  <VirtualList :list="list" :buffer-size="20" />
-  <!-- <div class="waterfall" @scroll="changeScroll">
-    <div class="waterfall_box">
-      <div v-for="(item, index) in list" :key="index" class="card">
-        <img class="card__icon" :src="item.url" alt="" />
-        <div class="card__content">
-          <p class="card__content__title">
-            {{ item.title }}
-          </p>
-          <div class="card__content__user">
-            <img
-              class="card__content__user__avatar"
-              :src="item.avatar"
-              alt=""
-            />
-            <span class="card__content__user__name">{{ item.name }}</span>
-            <i class="card__content__user__icon iconfont icon-aixin"></i>
-            <span class="card__content__user__like">{{ item.like }}</span>
+  <season-list
+    v-model:loading="loading"
+    :finished="finished"
+    class="waterfall"
+    finished-text="没有更多了"
+    @on-load="handleLoad"
+  >
+    <template #default>
+      <div class="waterfall__wrapper">
+        <div v-for="item in list" :key="item.like" class="card">
+          <img class="card__icon" :src="item.url" alt="" />
+          <div class="card__content">
+            <p class="card__content__title">{{ item.title }}</p>
+            <div class="card__content__user">
+              <img
+                class="card__content__user__avatar"
+                :src="item.avatar"
+                alt=""
+              />
+              <span class="card__content__user__name">{{ item.name }}</span>
+              <i class="card__content__user__icon iconfont icon-aixin"></i>
+              <span class="card__content__user__like">{{ item.like }}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div> -->
+    </template>
+  </season-list>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .waterfall {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    overflow-y: auto;
+    overflow-y: scroll;
     padding: pxToRem(4);
     background-color: var(--home-bg-color);
-    &_box {
+    &__wrapper {
       column-count: 2;
       column-gap: pxToRem(4);
     }
