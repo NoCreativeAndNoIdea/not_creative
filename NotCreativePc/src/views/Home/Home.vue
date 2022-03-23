@@ -39,21 +39,20 @@
       list.value = [...list.value, ...generateList()]
       loading.value = false
 
-      if (list.value.length > 200) {
+      if (list.value.length >= 100) {
         finished.value = true
       }
     }, 1000)
   }
 
-  effect(async () => {
-    loading.value = false
-    await getListData()
-  })
-
   const handleLoad = () => {
     console.log('load')
     getListData()
   }
+
+  effect(async () => {
+    await getListData()
+  })
 </script>
 
 <template>
@@ -61,7 +60,8 @@
     <List
       v-model:loading="loading"
       :finished="finished"
-      :offset="50"
+      :offset="10"
+      class="scroll"
       finished-text="加载完成!"
       loading-text="正在加载中!"
       @on-load="handleLoad"
@@ -70,3 +70,14 @@
     </List>
   </pull-refresh>
 </template>
+
+<style lang="scss">
+  .scroll {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    // overflow-y: scroll;
+    padding: pxToRem(4);
+    background-color: var(--home-bg-color);
+  }
+</style>
