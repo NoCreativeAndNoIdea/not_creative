@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { ref } from 'vue'
   import SeasonList from '~/components/List'
+  import PullRefresh from '~/components/PullRefresh/PullRefresh'
   const list = ref(
     new Array(10).fill(0).map((v, i) => ({
       url: `https://source.unsplash.com/random?random=${i}`,
@@ -32,37 +33,48 @@
       }
     }, 1000)
   }
+
+  const refresh = ref(false)
+  const handleRefresh = () => {
+    console.log('refresh')
+    setTimeout(() => {
+      refresh.value = false
+      console.log('close refresh')
+    }, 100000)
+  }
 </script>
 
 <template>
-  <season-list
-    v-model:loading="loading"
-    :finished="finished"
-    class="waterfall"
-    finished-text="没有更多了"
-    @on-load="handleLoad"
-  >
-    <template #default>
-      <div class="waterfall__wrapper">
-        <div v-for="item in list" :key="item.like" class="card">
-          <img class="card__icon" :src="item.url" alt="" />
-          <div class="card__content">
-            <p class="card__content__title">{{ item.title }}</p>
-            <div class="card__content__user">
-              <img
-                class="card__content__user__avatar"
-                :src="item.avatar"
-                alt=""
-              />
-              <span class="card__content__user__name">{{ item.name }}</span>
-              <i class="card__content__user__icon iconfont icon-aixin"></i>
-              <span class="card__content__user__like">{{ item.like }}</span>
+  <PullRefresh v-model="refresh" @on-refresh="handleRefresh">
+    <season-list
+      v-model:loading="loading"
+      :finished="finished"
+      class="waterfall"
+      finished-text="没有更多了"
+      @on-load="handleLoad"
+    >
+      <template #default>
+        <div class="waterfall__wrapper">
+          <div v-for="item in list" :key="item.like" class="card">
+            <img class="card__icon" :src="item.url" alt="" />
+            <div class="card__content">
+              <p class="card__content__title">{{ item.title }}</p>
+              <div class="card__content__user">
+                <img
+                  class="card__content__user__avatar"
+                  :src="item.avatar"
+                  alt=""
+                />
+                <span class="card__content__user__name">{{ item.name }}</span>
+                <i class="card__content__user__icon iconfont icon-aixin"></i>
+                <span class="card__content__user__like">{{ item.like }}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </template>
-  </season-list>
+      </template>
+    </season-list>
+  </PullRefresh>
 </template>
 
 <style lang="scss">
