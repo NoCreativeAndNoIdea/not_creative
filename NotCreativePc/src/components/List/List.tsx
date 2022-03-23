@@ -7,47 +7,39 @@ import {
   onMounted,
   defineComponent
 } from "vue"
-import {isHidden} from "~/utils"
+import {
+  isHidden
+} from "~/utils"
 import {
   useExpose,
   useRect,
   useEventListener,
   useScrollParent
 } from "~/hooks"
-import {ListExpose} from "./type"
-import "./list.scss"
+import {
+  type ListExpose,
+  listProps
+} from "./type"
 
 
-export interface ListProps {
-  error?: boolean,
-  offset?: Number | String,
-  loading?:boolean,
-  finished?:boolean,
-  errorText?:string,
-  loadingText?:string,
-  finishedText?:string,
-  immediateCheck?: boolean,
-}
 
-const List = defineComponent<ListProps>({
+const List = defineComponent({
   name:'List',
-  props:['error','offset','loading','finished','errorText','loadingText','finishedText','immediateCheck'] as any,
+  props: listProps,
   emits: ['on-load','update:error','update:loading'],
+  slots: ['default','loading','error'],
   setup(props,{emit,slots}){
     const loading = ref<boolean>(false);
     const root = ref<HTMLElement>()
     const placeholder = ref<HTMLElement>()
     const scrollParent = useScrollParent(root)
-    const {immediateCheck = true as const} = toRefs(props)
+    const {immediateCheck} = toRefs(props)
 
     const check = () => {
       nextTick(() => {
         if(loading.value || props.finished || props.error) return
 
-        let {offset = 300} = props;
-        if(typeof offset === 'string'){
-          offset  = Number(offset) 
-        }
+        const {offset} = toRefs(props)
         const scrollParentRect = useRect(scrollParent)
 
         if(!scrollParentRect.height || isHidden(root)) return
@@ -55,7 +47,7 @@ const List = defineComponent<ListProps>({
         let isReachEdge = false;
         const placeholderRect = useRect(placeholder)
 
-        isReachEdge = placeholderRect.bottom - scrollParentRect.bottom <= offset
+        isReachEdge = placeholderRect.bottom - scrollParentRect.bottom <= offset.value
         if(isReachEdge) {
           loading.value = true
           emit('update:loading',true)

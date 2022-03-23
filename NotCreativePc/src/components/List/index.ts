@@ -1,10 +1,9 @@
-import _List, { ListProps } from './List'
+import _List from './List'
 import { withInstall } from '~/utils/withInstall'
-
+import './list.scss'
 export const List = withInstall(_List)
 export default List
-export type { ListProps }
-export type { ListInstance } from './type'
+export type { ListInstance, ListProps } from './type'
 
 declare module 'vue' {
   export interface GlobalComponents {
