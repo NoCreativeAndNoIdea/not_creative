@@ -1,0 +1,23 @@
+.pull-refresh{
+  overflow:hidden;
+
+  &__track{
+    position: relative;
+    height: 100%;
+    transition-property: transform;
+  }
+
+  &__head{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    overflow:hidden;
+    color: var(--text-color);
+    font-size: pxToRem(16);
+    line-height: 2;
+    text-align: center;
+    transform: translateY(-100%);
+  }
+
+}

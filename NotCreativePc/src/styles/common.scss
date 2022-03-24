@@ -53,20 +53,9 @@ body{
   font-size:pxToRem(15);
   color: var(--text-desc);
   background-color: var(--bg-color);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
-@font-face {
-  font-family: 'iconfont';  /* Project id 2162071 */
-  src: url('//at.alicdn.com/t/font_2162071_5bifdhpi2ii.woff2?t=1646790774226') format('woff2'),
-       url('//at.alicdn.com/t/font_2162071_5bifdhpi2ii.woff?t=1646790774226') format('woff'),
-       url('//at.alicdn.com/t/font_2162071_5bifdhpi2ii.ttf?t=1646790774226') format('truetype');
-}
-
-.iconfont{
-  font-family: 'iconfont'!important;
-  font-size: pxToRem(16);
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: pxToRem(0.2);
-  -moz-osx-font-smoothing: grayscale;
-}
+@import url('//at.alicdn.com/t/font_2162071_5bifdhpi2ii.css');

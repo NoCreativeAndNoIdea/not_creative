@@ -13,7 +13,7 @@ let darkMedia: MediaQueryList
 const update = (theme: string) => {
   document.querySelector('html')?.setAttribute('data-theme', theme)
   Storage.setItem<string>(THEME_STORAGE_KEY, theme, {
-    type: 'local',
+    type: 'session',
   })
 }
 
@@ -22,12 +22,15 @@ export default (
 ): {
   update: typeof update
 } => {
+  const localTheme = Storage.getItem<string>(THEME_STORAGE_KEY, 'session')
+
   if (theme) {
     const currentTheme = isRef(theme) ? theme.value : theme
     update(currentTheme)
+  } else if (localTheme) {
+    update(localTheme)
   } else {
-    const localTheme = Storage.getItem<string>(THEME_STORAGE_KEY, 'local')
-    localTheme && update(localTheme)
+    update('light')
   }
 
   const themeListener = (

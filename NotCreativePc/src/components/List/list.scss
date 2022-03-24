@@ -1,0 +1,15 @@
+.list{
+  &__loading,
+  &__finished-text,
+  &__error-text{
+    color: var(--text-color);
+    font-size: pxToRem(16);
+    line-height: 2;
+    text-align: center;
+  }
+
+  &__placeholder {
+    height: 0;
+    pointer-events: none;
+  }
+}

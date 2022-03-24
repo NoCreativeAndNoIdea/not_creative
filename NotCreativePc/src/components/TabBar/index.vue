@@ -48,7 +48,7 @@
         :class="{ 'tab-bar__item--active': isActive(item) }"
         @click="onChange(item)"
       >
-        <i class="tab-bar__icon iconfont" v-html="item.icon" />
+        <i class="tab-bar__icon iconfont" :class="item.icon" />
         <span class="tab-bar__name">{{ $t(item?.name ?? '') }}</span>
       </div>
     </template>
@@ -57,12 +57,7 @@
 
 <style lang="scss">
   .tab-bar {
-    z-index: 1024;
-    border-top: 1px solid #eee;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    border-top: 1px solid var(--tab-border-color);
     width: 100vw;
     height: pxToRem(50);
     display: flex;
