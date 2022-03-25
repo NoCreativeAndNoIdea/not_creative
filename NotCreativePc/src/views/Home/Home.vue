@@ -49,10 +49,6 @@
     console.log('load')
     getListData()
   }
-
-  effect(async () => {
-    await getListData()
-  })
 </script>
 
 <template>

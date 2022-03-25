@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-  import { defineProps, toRefs } from 'vue'
+  import { defineProps } from 'vue'
   import { ListItem } from '../type'
+  import IImg from '~/components/IImg/IImg'
   interface CardProps {
     item: ListItem
   }
@@ -9,11 +10,15 @@
 
 <template>
   <div class="card">
-    <img class="card__icon" :src="item.url" alt="" />
+    <i-img class="card__cover" :url="item.url" alt="123123" />
     <div class="card__content">
       <p class="card__content__title">{{ item.title }}</p>
       <div class="card__content__user">
-        <img class="card__content__user__avatar" :src="item.avatar" alt="" />
+        <i-img
+          class="card__content__user__avatar"
+          :url="item.avatar"
+          :alt="item.name"
+        />
         <span class="card__content__user__name">{{ item.name }}</span>
         <i class="card__content__user__icon iconfont icon-aixin"></i>
         <span class="card__content__user__like">{{ item.like }}</span>
@@ -29,9 +34,11 @@
     margin-bottom: pxToRem(4);
     border-radius: pxToRem(6);
     overflow: hidden;
-    &__icon {
+    min-height: 300px;
+    &__cover {
       width: 100%;
       height: auto;
+      min-height: 100px;
       display: block;
     }
     &__content {
