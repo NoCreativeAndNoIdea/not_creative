@@ -4,7 +4,7 @@ $loading-size: 30px;
   @for $inx from 1 through $size {
     .loading__line--#{$inx}{
       transform: rotate($inx * 30deg);
-      opacity: 1 - (0.75 / 12) * ($inx - 1);
+      opacity: 1 - calc(0.75 / 12) * ($inx - 1);
     }
   }
 }
