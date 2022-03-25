@@ -28,3 +28,11 @@ export const isType = <T extends DataType>(val: unknown, type: T) => {
     .trim()
   return inlineType === type
 }
+
+/**
+ * 是否未定义
+ * @param val
+ * @returns Boolean
+ */
+export const isDef = <T>(val: T): val is NonNullable<T> =>
+  val !== undefined && val !== null
