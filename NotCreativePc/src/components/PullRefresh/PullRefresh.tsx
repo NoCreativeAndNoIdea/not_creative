@@ -21,6 +21,8 @@ import {
   useScrollParent
 } from '~/hooks'
 
+import Loading from "../Loading"
+
 
 const PullRefresh = defineComponent({
   name:'pullRefresh',
@@ -104,9 +106,11 @@ const PullRefresh = defineComponent({
       }
 
       if(status === 'loading') {
-        //TODO: 后续增加loading 组件引入
         nodes.push(
-          <div class="pull-refresh__text">loading</div>
+          <Loading 
+            v-slots={{ default: getStatusText }}
+            class="pull-refresh__loading"
+          />
         )
       }
 

@@ -20,4 +20,11 @@
     transform: translateY(-100%);
   }
 
+  &__loading{
+    margin-top: pxToRem(10);
+    .loading__spinner{
+      width: pxToRem(16);
+      height: pxToRem(16);
+    }
+  }
 }

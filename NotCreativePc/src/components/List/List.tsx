@@ -20,6 +20,7 @@ import {
   type ListExpose,
   listProps
 } from "./type"
+import Loading from "../Loading"
 
 
 
@@ -102,7 +103,7 @@ const List = defineComponent({
             class='list__loading'
           >
             {
-              slots.loading ? slots.loading() : 'loading'
+              slots.loading ? slots.loading() : <Loading />
             }
           </div>
         )
