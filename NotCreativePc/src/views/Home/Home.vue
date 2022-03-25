@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { effect, ref } from 'vue'
+  import { ref } from 'vue'
   import PullRefresh from '~/components/PullRefresh'
   import List from '~/components/List'
   import TheCard from './components/TheCard.vue'
@@ -19,7 +19,6 @@
   // pull refresh
   const refresh = ref(false)
   const handleRefresh = () => {
-    console.log('refresh')
     setTimeout(() => {
       list.value = generateList()
       refresh.value = false
@@ -46,7 +45,6 @@
   }
 
   const handleLoad = () => {
-    console.log('load')
     getListData()
   }
 </script>

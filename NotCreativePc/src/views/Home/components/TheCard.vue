@@ -34,7 +34,7 @@
     margin-bottom: pxToRem(4);
     border-radius: pxToRem(6);
     overflow: hidden;
-    min-height: 300px;
+    min-height: 100px;
     &__cover {
       width: 100%;
       height: auto;

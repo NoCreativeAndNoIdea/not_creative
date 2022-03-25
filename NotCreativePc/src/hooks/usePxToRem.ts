@@ -12,7 +12,6 @@ export default () => {
   watch(
     [width],
     ([preWidth], [newWidth]) => {
-      console.log(newWidth, 'new width')
       if (preWidth !== newWidth) {
         baseWidth.value = newWidth
       }
