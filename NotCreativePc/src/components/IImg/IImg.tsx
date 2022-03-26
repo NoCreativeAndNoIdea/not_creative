@@ -56,6 +56,12 @@ const IImg = defineComponent({
       return {}
     })
 
+    const handleError = () => {
+      if(state.loading){
+        imgSrc.value = defaultImg
+      }
+    }
+
     return () => {
 
       return (
@@ -65,6 +71,7 @@ const IImg = defineComponent({
           style={imgStyle.value} 
           src={state.loading ? imgSrc.value : ''} 
           alt={alt.value}
+          onError={handleError}
         />
       )
     }
