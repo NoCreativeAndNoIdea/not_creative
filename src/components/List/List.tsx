@@ -94,7 +94,6 @@ const List = defineComponent({
     }
 
 
-    // TODO: 后续引入loading组件 
     // render loading element or text
     const renderLoading = () => {
       if(loading.value && !props.finished){
