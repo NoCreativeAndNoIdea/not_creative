@@ -35,7 +35,9 @@
   }
 
   const isActive = (item: TabBarItem): boolean => {
-    if (item.routeName && route.name === item.routeName) return true
+    if (item.routeName && route.name === item.routeName){
+      currentItem.value = item
+    }
     return item.name === currentItem.value.name
   }
 </script>
