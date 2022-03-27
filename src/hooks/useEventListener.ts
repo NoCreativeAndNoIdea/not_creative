@@ -3,7 +3,7 @@ import { onMountedOrActivated } from './onMountedOrActivated'
 
 type TargetRef = EventTarget | Ref<EventTarget | undefined>
 
-export type UseEventListenerOptions = {
+export interface UseEventListenerOptions {
   target?: TargetRef
   capture?: boolean
   passive?: boolean

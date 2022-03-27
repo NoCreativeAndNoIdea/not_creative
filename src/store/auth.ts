@@ -25,15 +25,12 @@ export const useAuthStorage = <T extends AuthStore>(data?: T) => {
 }
 
 export const useAuthStore = defineStore('auth', {
-  state: (): AuthStore =>
-    Object.assign(
-      {
-        isLogin: false,
-        token: '',
-        tokenHead: '',
-      },
-      useAuthStorage()
-    ),
+  state: (): AuthStore => ({
+    isLogin: false,
+    token: '',
+    tokenHead: '',
+    ...useAuthStorage(),
+  }),
   getters: {
     getIsLogin(state) {
       return state.isLogin

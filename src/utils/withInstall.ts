@@ -1,14 +1,12 @@
 import type { App } from 'vue'
-type EventShim = {
-  new (...args: any[]): {
-    $props: {
-      onClick?: (...args: any[]) => void
-    }
+type EventShim = new (...args: any[]) => {
+  $props: {
+    onClick?: (...args: any[]) => void
   }
 }
 
 export type WithInstall<T> = T & {
-  install(app: App): void
+  install: (app: App) => void
 } & EventShim
 
 export function withInstall<T>(options: T) {

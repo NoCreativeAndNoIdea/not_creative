@@ -10,7 +10,7 @@ export interface TabBarItem {
 
 export type TabBarList = Array<TabBarItem>
 
-export type TabBarProps = {
+export interface TabBarProps {
   list: TabBarList
 }
 
