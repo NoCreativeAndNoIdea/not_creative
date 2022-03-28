@@ -1,6 +1,7 @@
 export * from './__useRouter'
 export * from './composables'
 export * from './onMountedOrActivated'
+export * from './useChildren'
 export * from './useEventListener'
 export * from './useIntersectionObserver'
 export * from './useListener'
