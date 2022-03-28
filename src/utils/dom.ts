@@ -1,3 +1,5 @@
+import { useWindowSize } from '~/hooks'
+
 export type ScrollElement = Element | Window
 
 export function getScrollTop(el: ScrollElement): number {
@@ -19,3 +21,5 @@ export function preventDefault(
     stopPropagation(event)
   }
 }
+
+export const { width: windowWidth, height: windowHeight } = useWindowSize()
