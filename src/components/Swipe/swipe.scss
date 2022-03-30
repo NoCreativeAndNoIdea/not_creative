@@ -1,0 +1,16 @@
+.swipe{
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  cursor: grab;
+  user-select: none;
+
+  &__track{
+    display: flex;
+    height: 100%;
+
+    &--vertical{
+      flex-direction: column;
+    }
+  }
+}
