@@ -63,7 +63,7 @@ export function useChildren<
   const parent = getCurrentInstance()!
 
   const likeChildren = (value?: ProvideValue) => {
-    const like = (child: ComponentInternalInstance) => {
+    const link = (child: ComponentInternalInstance) => {
       if (child?.proxy) {
         internalChildren.push(child)
         publicChildren.push(child.proxy as Child)
@@ -71,7 +71,7 @@ export function useChildren<
       }
     }
 
-    const unlike = (child: ComponentInternalInstance) => {
+    const unlink = (child: ComponentInternalInstance) => {
       const index = internalChildren.indexOf(child)
       publicChildren.splice(index, 1)
       internalChildren.splice(index, 1)
@@ -81,8 +81,8 @@ export function useChildren<
       key,
       Object.assign(
         {
-          like,
-          unlike,
+          link,
+          unlink,
           children: publicChildren,
           internalChildren,
         },
