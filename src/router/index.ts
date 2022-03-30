@@ -22,6 +22,14 @@ const routes: RouteRecordRaw[] = [
         },
         component: () => import('~/views/Home/Home.vue'),
       },
+      {
+        path: 'find',
+        name: 'find',
+        meta: {
+          title: 'find',
+        },
+        component: () => import('~/views/Find/index.vue'),
+      },
       // 404 component
       {
         path: ':pathMatch(.*)*',

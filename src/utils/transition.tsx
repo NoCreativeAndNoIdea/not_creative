@@ -1,9 +1,9 @@
-import type {
-  TransitionProps,
-  TransitionGroupProps
-} from "vue"
+import type { TransitionProps, TransitionGroupProps } from 'vue'
 
-export const getTransitionGroupProps = (transitionName: string, opt: TransitionProps = {}) => {
+export const getTransitionGroupProps = (
+  transitionName: string,
+  opt: TransitionProps = {}
+) => {
   const transitionProps: TransitionGroupProps = transitionName
     ? {
         appear: true,
@@ -17,6 +17,6 @@ export const getTransitionGroupProps = (transitionName: string, opt: TransitionP
         leaveToClass: `${transitionName}-leave-active`,
         ...opt,
       }
-    : { css: false, ...opt };
-  return transitionProps;
-};
+    : { css: false, ...opt }
+  return transitionProps
+}

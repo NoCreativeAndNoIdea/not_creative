@@ -1,8 +1,9 @@
 <script setup lang="ts">
-  import { defineProps, defineEmits } from 'vue'
+  import { defineEmits, defineProps } from 'vue'
+  import type { TabBarItem, TabBarList } from './hooks/useState'
   import { useState } from './hooks/useState'
   import { __useRouter } from '~/hooks/__useRouter'
-  import type { TabBarItem, TabBarList } from './hooks/useState'
+
   // TODO: 官方错误 必须要写在组件内,后续修正后单独引入
   interface Props {
     list?: TabBarList
@@ -35,7 +36,9 @@
   }
 
   const isActive = (item: TabBarItem): boolean => {
-    if (item.routeName && route.name === item.routeName) return true
+    if (item.routeName && route.name === item.routeName) {
+      currentItem.value = item
+    }
     return item.name === currentItem.value.name
   }
 </script>

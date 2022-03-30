@@ -1,55 +1,54 @@
-
-import { 
-  defineComponent, 
-  computed, 
-  onMounted, 
-  onUnmounted, 
-  watch, 
+import {
+  defineComponent,
+  computed,
+  onMounted,
+  onUnmounted,
+  watch,
   StyleValue,
-  Teleport
-} from 'vue';
-import { Key } from '~/utils/types';
-import  classNames from '~/utils/classNames';
+  Teleport,
+} from 'vue'
+import { Key } from '~/utils/types'
+import classNames from '~/utils/classNames'
 
-export interface NoticeProps{
-  prefixCls: string;
-  noticeKey: Key;
-  duration?: number;
-  holder?: HTMLDivElement;
-  visible?: boolean;
-  closable?:boolean;
-  closeIcon?:any;
-  onClick?: (e:MouseEvent) => void;
-  onClose?: (key:Key) => void;
+export interface NoticeProps {
+  prefixCls: string
+  noticeKey: Key
+  duration?: number
+  holder?: HTMLDivElement
+  visible?: boolean
+  closable?: boolean
+  closeIcon?: any
+  onClick?: (e: MouseEvent) => void
+  onClose?: (key: Key) => void
 }
 
 const Notice = defineComponent<NoticeProps>({
-  name: "Notice",
+  name: 'Notice',
   inheritAttrs: false,
   props: [
-    "prefixCls",
-    "noticeKey",
-    "duration",
-    "holder",
-    "visible",
-    "onClick",
-    "onClose",
-    "closable",
-    "closeIcon"
+    'prefixCls',
+    'noticeKey',
+    'duration',
+    'holder',
+    'visible',
+    'onClick',
+    'onClose',
+    'closable',
+    'closeIcon',
   ] as any,
-  setup(props,{attrs,slots}){
-    let closeTimer:NodeJS.Timeout | null;
-    const duration = computed(() => props.duration ? props.duration : 1.5);
+  setup(props, { attrs, slots }) {
+    let closeTimer: NodeJS.Timeout | null
+    const duration = computed(() => (props.duration ? props.duration : 1.5))
     const startCloseTimer = () => {
-      if(duration.value){
+      if (duration.value) {
         closeTimer = setTimeout(() => {
-          close();
-        }, duration.value * 1000);
+          close()
+        }, duration.value * 1000)
       }
     }
 
     const clearCloseTimer = () => {
-      if(closeTimer){
+      if (closeTimer) {
         clearTimeout(closeTimer)
         closeTimer = null
       }
@@ -60,13 +59,14 @@ const Notice = defineComponent<NoticeProps>({
       startCloseTimer()
     }
 
-    const close = (e?:MouseEvent) => {
-      if(e) e.stopPropagation()
+    const close = (e?: MouseEvent) => {
+      if (e) e.stopPropagation()
       clearCloseTimer()
-      const {onClose,noticeKey} = props;
-      if(onClose){onClose(noticeKey)}
+      const { onClose, noticeKey } = props
+      if (onClose) {
+        onClose(noticeKey)
+      }
     }
-
 
     onMounted(() => {
       startCloseTimer()
@@ -76,35 +76,38 @@ const Notice = defineComponent<NoticeProps>({
       clearCloseTimer()
     })
 
-
     watch(
-      [duration,() => props.visible],
-      ([preDuration,preVisible],[newDuration,newVisible]) => {
-        if(preDuration !== newDuration || preVisible !== newVisible){
+      [duration, () => props.visible],
+      ([preDuration, preVisible], [newDuration, newVisible]) => {
+        if (preDuration !== newDuration || preVisible !== newVisible) {
           restartCloseTimer()
         }
       },
-      {flush: 'post'}  
+      { flush: 'post' }
     )
 
     return () => {
-      const {onClick,holder,closable,prefixCls,closeIcon} = props;
+      const { onClick, holder, closable, prefixCls, closeIcon } = props
       const componentClass = `${prefixCls}-notice`
-      const {class:className,style} = attrs;
+      const { class: className, style } = attrs
       const dataOrAriaAttributeProps = Object.keys(attrs).reduce(
-        (acc: Record<string,string>,key: string) => {
-          if (key.substr(0, 5) === 'data-' || key.substr(0, 5) === 'aria-' || key === 'role') {
-            acc[key] = (attrs as any)[key];
+        (acc: Record<string, string>, key: string) => {
+          if (
+            key.substr(0, 5) === 'data-' ||
+            key.substr(0, 5) === 'aria-' ||
+            key === 'role'
+          ) {
+            acc[key] = (attrs as any)[key]
           }
-          return acc;
+          return acc
         },
         {}
       )
 
       const node = (
         <div
-          class={classNames(componentClass,className,{
-            [`${componentClass}-closable`] : closable
+          class={classNames(componentClass, className, {
+            [`${componentClass}-closable`]: closable,
           })}
           style={style as StyleValue}
           onMouseenter={clearCloseTimer}
@@ -113,24 +116,23 @@ const Notice = defineComponent<NoticeProps>({
           {...dataOrAriaAttributeProps}
         >
           <div class={`${componentClass}-content`}>{slots.default?.()}</div>
-          {
-            closable ? (
-              <a tabindex={0} onClick={close} class={`${componentClass}-close`}>
-                {closeIcon || <span class={`${componentClass}-close-x`}></span>  }
-              </a>
-            ) : null
-          }
+          {closable ? (
+            <a tabindex={0} onClick={close} class={`${componentClass}-close`}>
+              {closeIcon || <span class={`${componentClass}-close-x`}></span>}
+            </a>
+          ) : null}
         </div>
       )
 
-      if(holder){
-        return <Teleport to={holder} v-slots={{default: () => node}}></Teleport>
+      if (holder) {
+        return (
+          <Teleport to={holder} v-slots={{ default: () => node }}></Teleport>
+        )
       }
 
       return node
     }
-
-  }
+  },
 })
 
-export default Notice;
+export default Notice

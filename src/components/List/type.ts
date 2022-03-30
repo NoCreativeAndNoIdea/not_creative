@@ -1,6 +1,6 @@
 import type { ComponentPublicInstance, ExtractPropTypes } from 'vue'
 import { makeNumericProp, truthProp } from '~/utils/props'
-export type ListExpose = {
+export interface ListExpose {
   check: () => void
 }
 

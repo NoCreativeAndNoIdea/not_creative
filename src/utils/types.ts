@@ -6,7 +6,7 @@ export type MaybeRef<T> = T | Ref<T>
 
 export type NoValue<T> = null | undefined | T
 
-export type ObjectKey<T> = {
+export interface ObjectKey<T> {
   [key: string]: T
 }
 
