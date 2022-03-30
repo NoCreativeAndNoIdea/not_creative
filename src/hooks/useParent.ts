@@ -3,11 +3,10 @@ import {
   type ComponentInternalInstance,
   type ComponentPublicInstance,
   getCurrentInstance,
-  onMounted,
   computed,
   ref,
-  inject,
-} from 'vue'
+  inject, onUnmounted
+} from "vue";
 
 type ParentProvide<T> = T & {
   link(child: ComponentInternalInstance): void
@@ -23,7 +22,7 @@ export function useParent<T>(key: InjectionKey<ParentProvide<T>>) {
     const instance = getCurrentInstance()!
     const { link, unlink, internalChildren } = parent
     link(instance)
-    onMounted(() => unlink(instance))
+    onUnmounted(() => unlink(instance))
     const index = computed(() => internalChildren.indexOf(instance))
 
     return {
