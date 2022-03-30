@@ -191,8 +191,8 @@ const Notification = defineComponent<NotificationProps>({
 })
 
 Notification.newInstance = function newNotificationInstance(
-  properties:any,
-  callback:(...args:any[]) => void
+  properties: any,
+  callback: (...args: any[]) => void
 ) {
   const {
     name = 'notification',

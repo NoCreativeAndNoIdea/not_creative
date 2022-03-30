@@ -5,8 +5,9 @@ import {
   getCurrentInstance,
   computed,
   ref,
-  inject, onUnmounted
-} from "vue";
+  inject,
+  onUnmounted,
+} from 'vue'
 
 type ParentProvide<T> = T & {
   link(child: ComponentInternalInstance): void
